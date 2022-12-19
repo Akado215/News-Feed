@@ -1,0 +1,20 @@
+<div class="news-list-container">
+    <div class="page-title">
+        <div class="main-content">
+            <h1 class="mat-h1">
+                {{title}}
+            </h1>
+        </div>
+    </div>
+    <div class="main-content">
+        <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        <div *ngIf="articles">
+           <app-news
+             *ngFor="let article of observable | async; let i = index"
+             [article]="article"
+           ></app-news>
+       </div>
+       <mat-paginator [length]="totalPosts" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOption" aria-label="Select page">
+       </mat-paginator>
+    </div>
+</div>

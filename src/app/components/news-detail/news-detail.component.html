@@ -1,0 +1,14 @@
+<div *ngIf="article">
+    <div class="page-title">
+        <div class="main-content">
+            <h1 class="mat-h1">
+                {{article.title}}
+            </h1>
+        </div>
+    </div>
+    <div class="main-content">
+        <p>{{ article.content }}</p>
+        <p class="docs-footer-copyright">Published: <strong>{{ article.publishedAt | date:'medium' }}</strong></p>
+        <a [routerLink]="['']">Back to news list</a>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<mat-card *ngIf="article">
+    <mat-card-header>
+        <mat-card-title>{{ article.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p>{{ article.description }}</p>
+        <p class="docs-footer-copyright">Published: {{ article.publishedAt | date:'medium' }}</p> 
+        <a mat-flat-button color="primary" [routerLink]="['article', article.title]">Details</a>
+    </mat-card-content>
+</mat-card>
