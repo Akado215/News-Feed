@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import { NewsService } from './news.service';
 import { INews } from 'src/app/models/news';
+import { HttpErrorResponse } from '@angular/common/http';
 
 describe('NewsService', () => {
   let service: NewsService;
@@ -43,6 +44,24 @@ describe('NewsService', () => {
     const req = httpTestingController.expectOne(`https://gnews.io/api/v4/top-headlines?topic=breaking-new&token=${API_KEY}&lang=en`)
     expect(req.request.method).toBe('GET')
     req.flush(data)
+  });
+
+  it('can test HttpClient.get on 403 error', () => {
+    const message = 'Forbidden -- You have reached your daily quota, the next reset is at 00:00 UTC.'
+  
+    service.getAllPosts().subscribe({
+      next: response => fail('should fail with the 403 error'),
+      error: (err: HttpErrorResponse) => {
+        expect(err.error).toContain(message)
+      }
+    });
+  
+    const req = httpTestingController.expectOne(`https://gnews.io/api/v4/top-headlines?topic=breaking-new&token=${API_KEY}&lang=en`)
+  
+    req.flush(message, {
+      status: 403,
+      statusText: 'Forbidden',
+    })
   });
 
   afterEach(() => httpTestingController.verify())
