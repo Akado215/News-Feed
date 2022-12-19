@@ -23,6 +23,7 @@ describe('NewsService', () => {
     expect(service).toBeTruthy();
   });
 
+  //Request test case 1 
   it('can test HttpClient.get', () => {
     const data: INews = {
       "totalArticles": 54904,
